@@ -1,0 +1,28 @@
+{
+  "name": "Trabajo-Practico_Sebastian-Winter",
+  "version": "1.0.0",
+  "description": "A simple Api builded with Express",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --watch ./src/app.js"
+  },
+  "keywords": [
+    "express",
+    "api",
+    "nodejs"
+  ],
+  "author": "sebastian",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.5.2",
+    "jsonwebtoken": "^9.0.3",
+    "mongodb": "^7.2.0",
+    "mongoose": "^9.6.3",
+    "supertest": "^7.2.2"
+  }
+}
