@@ -3,7 +3,7 @@
 import request from "supertest"
 import jwt from "jsonwebtoken"
 import { server } from "../app.js"
-import { Product } from "../models/ProductModel.js"
+import { Product } from "../models/productModel.js"
 
 describe("GET /products", () => {
   it("debe devolver solo los productos del usuario autenticado", async () => {
