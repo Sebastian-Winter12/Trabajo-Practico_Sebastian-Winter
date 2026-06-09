@@ -96,10 +96,13 @@ Registra un nuevo usuario.
 
 **Body:**
 ```json
-{
+"data": {
+  "id": "664f1a2b3c4d5e6f7a8b9c0d",
   "username": "sebawinter",
   "email": "seba@example.com",
-  "password": "Passw0rd!"
+  "createdAt": "...",
+  "updatedAt": "...",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 }
 ```
 
@@ -288,17 +291,6 @@ Elimina un producto, solo si pertenece al usuario autenticado.
   "message": "Product deleted successfully"
 }
 ```
-
----
-
-## Colección de Postman
-
-Importá el archivo `postman_collection.json` incluido en el repositorio para tener todos los endpoints preconfigurados.
-
-1. Abrí Postman
-2. Hacé click en **Import**
-3. Seleccioná el archivo `postman_collection.json`
-4. Después de hacer login, copiá el token en la variable de entorno `token` de la colección
 
 ---
 
