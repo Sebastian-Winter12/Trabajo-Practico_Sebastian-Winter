@@ -39,6 +39,12 @@ API REST construida con **Express** y **MongoDB** que implementa autenticación 
 └── README.md
 ```
 
+## Deploy
+
+API disponible en: https://trabajo-practico-sebastian-winter.onrender.com
+
+---
+
 ## Rate Limiting
 
 El endpoint `POST /api/auth/login` tiene protección contra fuerza bruta: máximo **5 intentos cada 15 minutos** por IP. Si se supera ese límite, la API responde con `429 Too Many Requests`.
