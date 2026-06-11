@@ -1,5 +1,6 @@
 import { Product } from "../models/productModel.js";
 
+// todos los productos del usuario logueado
 const getProducts = async (req, res) => {
   try {
     const userLogged = req.userLogged
@@ -14,6 +15,7 @@ const getProducts = async (req, res) => {
   }
 }
 
+// un producto específico del usuario logueado por ID
 const getProduct = async (req, res) => {
   try {
     const id = req.params.id
@@ -30,6 +32,7 @@ const getProduct = async (req, res) => {
   }
 }
 
+// creación de un producto para el usuario logueado
 const createProduct = async (req, res) => {
   try {
     const body = req.body
@@ -65,6 +68,7 @@ const createProduct = async (req, res) => {
   }
 }
 
+// actualización de un producto por ID para el usuario logueado
 const updateProduct = async (req, res) => {
   try {
     const id = req.params.id
@@ -100,7 +104,7 @@ const updateProduct = async (req, res) => {
   }
 }
 
-
+// eliminación de un producto por ID para el usuario logueado
 const deleteProduct = async (req, res) => {
   try {
     const { id } = req.params

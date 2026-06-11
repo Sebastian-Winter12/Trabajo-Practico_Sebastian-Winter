@@ -15,7 +15,6 @@ if (entorno === "dev") {
 }
 
 const server = express()
-// permite que las peticiones puedan enviar body JSON
 server.use(express.json())
 server.use(cors())
 
@@ -34,7 +33,6 @@ server.listen(PORT, () => {
   console.log(`Servidor en escucha por el puerto http://localhost:${PORT}`)
 })
 
-// al final, después de todas las rutas
 server.use((err, req, res, next) => {
   console.error(err.stack)
   res.status(500).json({ success: false, error: "Internal server error" })
