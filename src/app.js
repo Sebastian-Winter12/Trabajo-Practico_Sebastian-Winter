@@ -1,7 +1,7 @@
 import express from 'express'
 import { config } from 'dotenv'
 import { connectDb } from './config/mongoDbConnection.js';
-import { productRouter } from './routes/productRouter.js';
+import { taskRouter } from './routes/taskRouter.js';
 import { AuthRouter } from './routes/authRouter.js';
 import { authMiddleware } from './middlewares/authMiddleware.js';
 import cors from 'cors'
@@ -25,7 +25,7 @@ server.get("/", (req, res) => {
   })
 })
 
-server.use("/api/products", authMiddleware, productRouter);
+server.use("/api/tasks", authMiddleware, taskRouter);
 server.use("/api/auth", AuthRouter);
 
 server.listen(PORT, () => {

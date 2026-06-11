@@ -1,6 +1,6 @@
 # Trabajo-Practico_Sebastian-Winter
 
-API REST construida con **Express** y **MongoDB** que implementa autenticación con **JWT** y sigue el patrón de arquitectura **MVC**. Permite gestionar productos asociados a un usuario autenticado.
+API REST construida con **Express** y **MongoDB** que implementa autenticación con **JWT** y sigue el patrón de arquitectura **MVC**. Permite gestionar tareas asociadas a un usuario autenticado.
 
 ---
 
@@ -18,26 +18,24 @@ API REST construida con **Express** y **MongoDB** que implementa autenticación 
 
 ## Estructura del proyecto
 
-```
 ├── config/
 │   └── mongoDbConnection.js
 ├── controllers/
 │   ├── authControllers.js
-│   └── productControllers.js
+│   └── taskControllers.js
 ├── middlewares/
 │   ├── authMiddleware.js
 │   └── limiterMiddleware.js
 ├── models/
 │   ├── UserModel.js
-│   └── ProductModel.js
+│   └── TaskModel.js
 ├── routes/
 │   ├── authRouter.js
-│   └── productRouter.js
+│   └── taskRouter.js
 ├── .env
 ├── .env.example
 ├── app.js
 └── README.md
-```
 
 ## Deploy
 
@@ -56,7 +54,7 @@ El endpoint `POST /api/auth/login` tiene protección contra fuerza bruta: máxim
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/tu-usuario/Trabajo-Practico_Sebastian-Winter.git
+git clone https://github.com/Sebastian-Winter12/Trabajo-Practico_Sebastian-Winter.git
 cd Trabajo-Practico_Sebastian-Winter
 ```
 
@@ -75,12 +73,9 @@ cp .env.example .env
 ```
 
 Editá el `.env` con tus datos:
-
-```
 PORT=3000
 URI_DB=mongodb://localhost:27017/tp-sebastian-winter
 JWT_SECRET=tu_clave_secreta
-```
 
 ### 4. Iniciar el servidor
 
@@ -102,13 +97,10 @@ Registra un nuevo usuario.
 
 **Body:**
 ```json
-"data": {
-  "id": "664f1a2b3c4d5e6f7a8b9c0d",
+{
   "username": "sebawinter",
   "email": "seba@example.com",
-  "createdAt": "...",
-  "updatedAt": "...",
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  "password": "Passw0rd!"
 }
 ```
 
@@ -121,7 +113,8 @@ Registra un nuevo usuario.
     "username": "sebawinter",
     "email": "seba@example.com",
     "createdAt": "2025-01-01T00:00:00.000Z",
-    "updatedAt": "2025-01-01T00:00:00.000Z"
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
   },
   "message": "User registered successfully"
 }
@@ -158,19 +151,16 @@ Inicia sesión y devuelve un token JWT.
 
 ---
 
-### Productos (privados)
+### Tareas (privados)
 
-Todos los endpoints de productos requieren el header:
-
-```
+Todos los endpoints de tareas requieren el header:
 Authorization: Bearer <token>
-```
 
 ---
 
-#### `GET /api/products`
+#### `GET /api/tasks`
 
-Lista todos los productos del usuario autenticado.
+Lista todas las tareas del usuario autenticado.
 
 **Respuesta exitosa `200`:**
 ```json
@@ -179,24 +169,24 @@ Lista todos los productos del usuario autenticado.
   "data": [
     {
       "_id": "664f1a2b3c4d5e6f7a8b9c0e",
-      "name": "Laptop",
-      "price": 1200,
-      "category": "Electrónica",
-      "stock": 5,
-      "available": true,
+      "subject": "Matemáticas",
+      "description": "Resolver ejercicios del capítulo 3",
+      "priority": "high",
+      "dueDate": "2025-06-15T00:00:00.000Z",
+      "completed": false,
       "createdAt": "2025-01-01T00:00:00.000Z",
       "updatedAt": "2025-01-01T00:00:00.000Z"
     }
   ],
-  "message": "Products fetched successfully"
+  "message": "Tasks fetched successfully"
 }
 ```
 
 ---
 
-#### `GET /api/products/:id`
+#### `GET /api/tasks/:id`
 
-Obtiene un producto por ID, solo si pertenece al usuario autenticado.
+Obtiene una tarea por ID, solo si pertenece al usuario autenticado.
 
 **Respuesta exitosa `200`:**
 ```json
@@ -204,59 +194,63 @@ Obtiene un producto por ID, solo si pertenece al usuario autenticado.
   "success": true,
   "data": {
     "_id": "664f1a2b3c4d5e6f7a8b9c0e",
-    "name": "Laptop",
-    "price": 1200,
-    "category": "Electrónica",
-    "stock": 5,
-    "available": true
+    "subject": "Matemáticas",
+    "description": "Resolver ejercicios del capítulo 3",
+    "priority": "high",
+    "dueDate": "2025-06-15T00:00:00.000Z",
+    "completed": false,
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
   },
-  "message": "Product fetched successfully"
+  "message": "Task fetched successfully"
 }
 ```
 
 ---
 
-#### `POST /api/products`
+#### `POST /api/tasks`
 
-Crea un nuevo producto asociado al usuario autenticado.
+Crea una nueva tarea asociada al usuario autenticado.
 
 **Body:**
 ```json
 {
-  "name": "Laptop",
-  "price": 1200,
-  "category": "Electrónica",
-  "stock": 5
+  "subject": "Matemáticas",
+  "description": "Resolver ejercicios del capítulo 3",
+  "priority": "high",
+  "dueDate": "2025-06-15"
 }
 ```
 
-**Respuesta exitosa `200`:**
+**Respuesta exitosa `201`:**
 ```json
 {
   "success": true,
   "data": {
     "_id": "664f1a2b3c4d5e6f7a8b9c0e",
-    "name": "Laptop",
-    "price": 1200,
-    "category": "Electrónica",
-    "stock": 5,
-    "available": true
+    "subject": "Matemáticas",
+    "description": "Resolver ejercicios del capítulo 3",
+    "priority": "high",
+    "dueDate": "2025-06-15T00:00:00.000Z",
+    "completed": false,
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
   },
-  "message": "Product created successfully"
+  "message": "Task created successfully"
 }
 ```
 
 ---
 
-#### `PATCH /api/products/:id`
+#### `PATCH /api/tasks/:id`
 
-Actualiza parcialmente un producto, solo si pertenece al usuario autenticado.
+Actualiza parcialmente una tarea, solo si pertenece al usuario autenticado.
 
 **Body (todos los campos son opcionales):**
 ```json
 {
-  "price": 999,
-  "stock": 0
+  "completed": true,
+  "priority": "low"
 }
 ```
 
@@ -266,21 +260,23 @@ Actualiza parcialmente un producto, solo si pertenece al usuario autenticado.
   "success": true,
   "data": {
     "_id": "664f1a2b3c4d5e6f7a8b9c0e",
-    "name": "Laptop",
-    "price": 999,
-    "category": "Electrónica",
-    "stock": 0,
-    "available": false
+    "subject": "Matemáticas",
+    "description": "Resolver ejercicios del capítulo 3",
+    "priority": "low",
+    "dueDate": "2025-06-15T00:00:00.000Z",
+    "completed": true,
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
   },
-  "message": "Product updated successfully"
+  "message": "Task updated successfully"
 }
 ```
 
 ---
 
-#### `DELETE /api/products/:id`
+#### `DELETE /api/tasks/:id`
 
-Elimina un producto, solo si pertenece al usuario autenticado.
+Elimina una tarea, solo si pertenece al usuario autenticado.
 
 **Respuesta exitosa `200`:**
 ```json
@@ -288,13 +284,13 @@ Elimina un producto, solo si pertenece al usuario autenticado.
   "success": true,
   "data": {
     "_id": "664f1a2b3c4d5e6f7a8b9c0e",
-    "name": "Laptop",
-    "price": 1200,
-    "category": "Electrónica",
-    "stock": 5,
-    "available": true
+    "subject": "Matemáticas",
+    "description": "Resolver ejercicios del capítulo 3",
+    "priority": "high",
+    "dueDate": "2025-06-15T00:00:00.000Z",
+    "completed": false
   },
-  "message": "Product deleted successfully"
+  "message": "Task deleted successfully"
 }
 ```
 
